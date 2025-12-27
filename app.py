@@ -8,6 +8,18 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+@app.route("/admin")
+def admin():
+    inquiries = []
+    try:
+        with open("inquiries.txt", "r", encoding="utf-8") as f:
+            for line in f.readlines():
+                inquiries.append(line.strip())
+    except FileNotFoundError:
+        inquiries = ["No inquiries yet"]
+    return render_template("admin.html", inquiries=inquiries)
+
+
 @app.route("/contact", methods=["POST"])
 def contact():
     name = request.form.get("name", "")
