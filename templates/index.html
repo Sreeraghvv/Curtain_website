@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homy Curtains  - Premium Custom Curtains</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>Homy Curtains </h1>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <h2>Premium Curtains </h2>
+      <p>Custom design, measurement & installation. Serving all over India.</p>
+      <div class="cta">
+        <a href="#contact" class="btn primary">Get Free Quote</a>
+        <a href="https://wa.me/919633342459" class="btn whatsapp" target="_blank">WhatsApp</a>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2>Our Services</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Custom Curtains</h3>
+          <p>Any fabric, any size, perfect fit</p>
+        </div>
+        <div class="card">
+          <h3>Blinds & Shades</h3>
+          <p>Modern roller, vertical blinds</p>
+        </div>
+        <div class="card">
+          <h3>Installation</h3>
+          <p>Professional fitting anywhere in Bengaluru</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Get Your Free Quote</h2>
+      <form id="contact-form">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <input type="text" id="address" placeholder="Address / Area">
+        <textarea id="message" placeholder="Window sizes, fabric preference..." rows="4" required></textarea>
+        <button type="submit">Send Quote Request</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>🪟 Curtains | Serving all areas | +91 9633342459</p>
+  </footer>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        message: document.getElementById('message').value
+      };
+      console.log('Customer inquiry:', formData);
+      alert('Thank you! Quote request sent. We will call you within 1 hour.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
