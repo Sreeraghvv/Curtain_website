@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homy Curtains  - Premium Custom Curtains</title>
+  <title>Homy Curtains - Premium Custom Curtains</title>
+  <meta name="description" content="Custom curtains India wide. Free quote +91 9633342459. WhatsApp ready.">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <header>
     <nav>
-      <h1>Homy Curtains </h1>
+      <h1>🪟 Homy Curtains</h1>
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#services">Services</a></li>
@@ -21,11 +22,11 @@
 
   <main>
     <section id="home">
-      <h2>Premium Curtains </h2>
+      <h2>Premium Curtains Across India</h2>
       <p>Custom design, measurement & installation. Serving all over India.</p>
       <div class="cta">
         <a href="#contact" class="btn primary">Get Free Quote</a>
-        <a href="https://wa.me/919633342459" class="btn whatsapp" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/919633342459?text=Hi%2C%20I%20need%20custom%20curtains%20for%20my%20home" class="btn whatsapp" target="_blank">WhatsApp Now</a>
       </div>
     </section>
 
@@ -33,48 +34,81 @@
       <h2>Our Services</h2>
       <div class="cards">
         <div class="card">
-          <h3>Custom Curtains</h3>
-          <p>Any fabric, any size, perfect fit</p>
+          <h3>👗 Custom Curtains</h3>
+          <p>Any fabric, any size, perfect fit for your windows</p>
         </div>
         <div class="card">
-          <h3>Blinds & Shades</h3>
-          <p>Modern roller, vertical blinds</p>
+          <h3>🎐 Blinds & Shades</h3>
+          <p>Modern roller blinds, vertical blinds, Roman shades</p>
         </div>
         <div class="card">
-          <h3>Installation</h3>
-          <p>Professional fitting anywhere in Bengaluru</p>
+          <h3>🔨 Installation</h3>
+          <p>Professional fitting anywhere in India</p>
         </div>
+        <div class="card">
+          <h3>📏 Free Measurement</h3>
+          <p>Home visit, exact measurements, 3D preview</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop" alt="Living room curtains" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400&h=300&fit=crop" alt="Bedroom curtains" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop" alt="Modern blinds" loading="lazy">
       </div>
     </section>
 
     <section id="contact">
       <h2>Get Your Free Quote</h2>
-      <form id="contact-form">
-        <input type="text" id="name" placeholder="Your Name" required>
-        <input type="tel" id="phone" placeholder="Phone Number" required>
-        <input type="text" id="address" placeholder="Address / Area">
-        <textarea id="message" placeholder="Window sizes, fabric preference..." rows="4" required></textarea>
+      <form id="contact-form" action="/contact" method="POST">
+        <input type="text" name="name" id="name" placeholder="Your Name *" required>
+        <input type="tel" name="phone" id="phone" placeholder="Phone Number *" required>
+        <input type="text" name="address" id="address" placeholder="Address / Area / City">
+        <textarea name="message" id="message" placeholder="Window sizes, fabric preference, budget..." rows="4" required></textarea>
         <button type="submit">Send Quote Request</button>
       </form>
     </section>
   </main>
 
   <footer>
-    <p>🪟 Curtains | Serving all areas | +91 9633342459</p>
+    <p>🪟 Homy Curtains | India Wide | +91 96333 42459 | WhatsApp Ready</p>
   </footer>
 
   <script>
     document.getElementById('contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      const formData = {
-        name: document.getElementById('name').value,
-        phone: document.getElementById('phone').value,
-        address: document.getElementById('address').value,
-        message: document.getElementById('message').value
-      };
-      console.log('Customer inquiry:', formData);
-      alert('Thank you! Quote request sent. We will call you within 1 hour.');
-      this.reset();
+      const button = this.querySelector('button');
+      button.innerText = 'Sending...';
+      button.disabled = true;
+      
+      // Send to backend
+      fetch('/contact', {
+        method: 'POST',
+        body: new FormData(this)
+      }).then(response => response.text())
+        .then(() => {
+          alert('✅ Thank you! Quote saved. We will call within 1 hour.');
+          this.reset();
+          button.innerText = 'Send Quote Request';
+          button.disabled = false;
+        }).catch(() => {
+          alert('❌ Please use WhatsApp button.');
+          button.innerText = 'Send Quote Request';
+          button.disabled = false;
+        });
+    });
+
+    // Smooth scroll navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
     });
   </script>
 </body>
