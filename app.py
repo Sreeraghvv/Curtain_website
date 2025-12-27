@@ -12,27 +12,29 @@ def home():
 def admin():
     inquiries = []
     try:
-        with open("inquiries.txt", "r", encoding="utf-8") as f:
-            for line in f.readlines():
-                inquiries.append(line.strip())
-    except FileNotFoundError:
+        if os.path.exists("inquiries.txt"):
+            with open("inquiries.txt", "r", encoding="utf-8") as f:
+                inquiries = [line.strip() for line in f.readlines() if line.strip()]
+        if not inquiries:
+            inquiries = ["No inquiries yet"]
+    except:
         inquiries = ["No inquiries yet"]
     return render_template("admin.html", inquiries=inquiries)
 
-
 @app.route("/contact", methods=["POST"])
 def contact():
-    name = request.form.get("name", "")
-    phone = request.form.get("phone", "")
-    address = request.form.get("address", "")
-    message = request.form.get("message", "")
-    
-    # Save to file with timestamp
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open("inquiries.txt", "a", encoding="utf-8") as f:
-        f.write(f"{timestamp} | {name} | {phone} | {address} | {message}\n")
-    
-    return "OK"
+    try:
+        name = request.form.get("name", "")
+        phone = request.form.get("phone", "")
+        address = request.form.get("address", "")
+        message = request.form.get("message", "")
+        
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open("inquiries.txt", "a", encoding="utf-8") as f:
+            f.write(f"{timestamp} | {name} | {phone} | {address} | {message}\n")
+        return "OK"
+    except:
+        return "Error"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
